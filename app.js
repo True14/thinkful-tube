@@ -18,14 +18,21 @@ function getDataFromApi(searchTerm, callback) {
 
 //////RENDER FUNCTIONS//////////
 function displayResults(data) {
-  let resultElement = '<p>No results</p>';
-  if(data.Search) {
-    data.Search.forEach(function(item) {
-      resultElement += `<img src="${items.snippet.thumnails.high.url}/>"`;
-    });
-  }
-  $('.js-results').html(resultElement);
   console.log('success', data);
+  let resultElement = '';
+  if(data.items) {
+    console.log("are we doing this?")
+    data.items.forEach(function(item) {
+      resultElement += `<img src="${item.snippet.thumbnails.high.url}"/>`;
+
+    });
+
+  }
+  else {
+    resultElement = '<p>no result</p>';
+  }
+      console.log(resultElement);
+  $('.js-results').html(resultElement);
 }
 
 getDataFromApi('dog video', displayResults);
