@@ -31,6 +31,7 @@ $(function() {
           state.results.push(resultObj);
         });
         console.log(state);
+        render(appState, $('.js-results'));
       }
     });
   };
@@ -39,10 +40,12 @@ $(function() {
   //////RENDER FUNCTIONS//////////
 
 const render = function(state, element) {
-    element.html(`
-  <ul>
-  <li>(`${state.results[0].thumbnail}`)</li>
-  </ul>`);
+  console.log(state.results[0]);
+  state.results.forEach(function (index){
+    element.html(`<ul>
+          <li><img src="${state.results[index].thumbnail}"</li>
+          </ul>`);
+  });
 };
 
 
@@ -58,7 +61,7 @@ const render = function(state, element) {
 //         <p>How well do you know your capitals?</p>
 
 //         <button class="start-quiz">Start Quiz</button>
-    
+
 //         </div>`);
 // };
 
@@ -68,6 +71,5 @@ const render = function(state, element) {
     const query = $(this).find('.js-query').val();
     console.log(query);
     getDataFromApi(query, appState);
-    render(appState,$('.js-results'));
   });
 });
