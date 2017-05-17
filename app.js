@@ -6,7 +6,7 @@ $(function() {
 
   ///////MOD FUNCTIONS////////////
 
-  //$AJAX
+  //$.getJSON////////////
   function getDataFromApi(searchTerm, callback) {
     const query = {
       part: 'snippet',
@@ -15,16 +15,38 @@ $(function() {
     }
     $.getJSON(BASE_URL, query, callback)
   }
-
-  //////RENDER FUNCTIONS//////////
-  function displayResults(data) {
+ 
+ function getResults(data) {
     console.log('success', data);
-    let resultElement = '';
+    let resultThumbnail = '';
+    let resultId = '';
+    let resultObj = {};
     if (data.items) {
       console.log("are we doing this?")
       data.items.forEach(function(item) {
-        resultElement += `<img src="${item.snippet.thumbnails.medium.url}"/>`;
+        resultThumbnail = item.snippet.thumbnails.medium.url;
+        resultId = item.id.videoId;
+        resultObj = {
+            thumbnail: resultThumbnail,
+            id: resultId
+        }
+      });
 
+  //////RENDER FUNCTIONS//////////
+  function getResults(data) {
+    console.log('success', data);
+    let resultThumbnail = '';
+    let resultId = '';
+    let resultObj = {};
+    if (data.items) {
+      console.log("are we doing this?")
+      data.items.forEach(function(item) {
+        resultThumbnail = item.snippet.thumbnails.medium.url;
+        resultId = item.id.videoId;
+        resultObj = {
+            thumbnail: resultThumbnail,
+            id: resultId
+        }
       });
 
     } else {
