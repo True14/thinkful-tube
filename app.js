@@ -7,7 +7,7 @@ $(function() {
 
   ///////MOD FUNCTIONS////////////
 
-  //$.getJSON////////////
+  //CALLBACK FUNCTION////////////
   function getDataFromApi(searchTerm, state) {
     const query = {
       part: 'snippet',
@@ -15,12 +15,11 @@ $(function() {
       q: searchTerm
     }
     $.getJSON(BASE_URL, query, function(data) {
-      console.log('success', data);
       let resultThumbnail = '';
       let resultId = '';
       let resultObj = {};
       if (data.items) {
-        console.log("are we doing this?")
+         console.log("are we doing this?")
         data.items.forEach(function(item) {
           resultThumbnail = item.snippet.thumbnails.medium.url;
           resultId = item.id.videoId;
@@ -40,30 +39,19 @@ $(function() {
   //////RENDER FUNCTIONS//////////
 
 const render = function(state, element) {
-  console.log(state.results[0]);
+  let stuff = `<ul>`;
+   if (state.results.length ===0 ){
+      stuff =`<h2> No Results Found!</h2>`;
+  } else{
   state.results.forEach(function (index){
-    element.html(`<ul>
-          <li><img src="${state.results[index].thumbnail}"</li>
-          </ul>`);
+      stuff+= `<li><img src="${index.thumbnail}"</li>`; // stuff = stuff + 
+    // console.log(stuff);
   });
+  }
+  element.html(stuff);
+  
 };
 
-
-
-
-
-
-// const renderHome = function(state, element) {
-
-//     element.html(
-//         `<div>
-//         <h1>State Capital Quiz</h1>
-//         <p>How well do you know your capitals?</p>
-
-//         <button class="start-quiz">Start Quiz</button>
-
-//         </div>`);
-// };
 
   ///EVENT LISTENERS////////////
   $(".js-search-form").submit(function(event) {
